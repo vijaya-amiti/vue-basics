@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <title>Reusable Component</title>
+</head>
+<body>
+    
+    <div id="app">
+        <filtering v-bind:filter="filter" v-on:change-filter-field="changeFilters" v-on:change-filter-query="changeQuery"></filtering>
+
+        <div><h1>Displaying Peope Details</h1></div>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Balance</th>
+                <th>Registered</th>
+                <th>Active</th>
+            </tr>
+            <template v-for="individual in people">
+                <team-member v-bind:person="individual" v-bind:filter="filter"></team-member>
+            </template>
+        </table>
+    </div>
+
+    <script type="text/x-template" id="filtering-template">
+        <form>
+                <label for="fileterField">
+                    <strong>Field:</strong>
+                    <select id="filterField" v-on:change="changeFilterField($event)">
+                        <option value="">Disable Filter</option>
+                        <option value="isActive">Active User</option>
+                        <option value="name">Name</option>
+                        <option value="email">Email</option>
+                        <option value="balance">Balance</option>
+                        <option value="registered">Date Registered</option>
+                    </select>
+                </label>
+                <br>
+    
+                <label for="filterQuery" v-show="filter.field && !isActiveFilterSelected()">
+                    Query:
+                    <input type="text" id="filterQuery" v-model="filter.query">
+                </label>
+    
+                <br>
+    
+                <span v-show="isActiveFilterSelected()">
+                    Active:
+                    <label for="userStatusActivate">
+                        Yes
+                        <input type="radio" name="userStatus" v-bind:value="true" id="userStatusActivate" v-model="filter.query" checked>
+                    </label>
+    
+                    <label for="userStatusInactivate">
+                        No
+                        <input type="radio" name="userStatus" v-bind:value="false" id="userStatusInactivate" v-model="filter.query">
+                    </label>
+                </span>
+            </form>
+    
+            <!-- <br> -->
+    </script>
+    <script type="text/x-template" id="team-member-template">
+        
+        <tr v-show="filterRow">
+            <td>
+                {{ person.name }}
+            </td>
+            <td>
+                <a v-bind:href="'mailTo:' + person.email">{{ person.email }}</a>
+            </td>
+            <td :class="balanceClass">
+                {{ balance }}
+            </td> 
+            <td>
+                {{ dateRegistered }}
+            </td>
+            <td v-bind:class="activeClass">
+                {{ status }}
+            </td>
+        </tr>
+    </script>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="main.js"></script>
+    
+</body>
+</html>
