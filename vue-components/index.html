@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        .modal {
+            display: block;
+        }
+    </style>
+    <title>Vue Components</title>
+</head>
+<body>
+    
+    <div id="app">
+
+        <modal-window :visible="true">
+            <h1 slot="header">Modal Heading</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt natus aspernatur repellendus provident quasi ullam autem. Facilis eaque laborum modi consectetur in! Error quae nam enim quisquam recusandae similique temporibus!</p>
+            <p slot="footer">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt natus aspernatur repellendus provident quasi ullam autem. Facilis eaque laborum modi consectetur in! Error quae nam enim quisquam recusandae similique temporibus!</p>
+            <div slot="buttons">
+                <button type="button" class="btn btn-primary">Ok</button>
+            </div>
+            
+        </modal-window>
+
+        <!-- <balance v-bind:cost="1234"></balance> -->
+
+        <!-- <heading test="hello"></heading> -->
+
+        <!-- When custom HTML tags won't be parsed use the folloeing format -->
+        <!-- <ol>
+            <li is="my-component"></li>
+        </ol> -->
+
+
+
+
+    </div>
+
+
+    <script src="https://unpkg.com/vue"></script>
+    <script src="main.js"></script>
+</body>
+</html>

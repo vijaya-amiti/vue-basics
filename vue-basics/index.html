@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <title>Vue Basics</title>
+</head>
+<body>
+    
+    <div id="app">
+
+        <form>
+            <label for="fileterField">
+                Field:
+                <select id="filterField" v-on:change="changeFilters($event)">
+                    <option value="">Disable Filter</option>
+                    <option value="isActive">Active User</option>
+                    <option value="name">Name</option>
+                    <option value="email">Email</option>
+                    <option value="balance">Balance</option>
+                    <option value="registered">Date Registered</option>
+                </select>
+            </label>
+            <br>
+
+            <label for="filterQuery" v-show="filter.field && !isActiveFilterSelected()">
+                Query:
+                <input type="text" id="filterQuery" v-model="filter.query">
+            </label>
+
+            <br>
+
+            <span v-show="isActiveFilterSelected()">
+                Active:
+                <label for="userStatusActivate">
+                    Yes
+                    <input type="radio" name="userStatus" v-bind:value="true" id="userStatusActivate" v-model="filter.query" checked>
+                </label>
+
+                <label for="userStatusInactivate">
+                    No
+                    <input type="radio" name="userStatus" v-bind:value="false" id="userStatusInactivate" v-model="filter.query">
+                </label>
+            </span>
+        </form>
+
+        <br>
+
+
+
+        <div><h1>Displaying Peope Details</h1></div>
+
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Balance</th>
+                <th>Registered</th>
+                <th>Active</th>
+            </tr>
+            <tr v-for="person in people" v-show="filterRow(person)">
+                <td>
+                    {{ person.name }}
+                </td>
+                <td>
+                    <a v-bind:href="'mailTo:' + person.email">{{ person.email }}</a>
+                </td>
+                <td :class="balanceClass(person)">
+                    {{ format(person, 'balance') }}
+                </td> 
+                <td>
+                    {{ format(person, 'registered') }}
+                </td>
+                <td v-bind:class="activeClass(person)">
+                    {{ format(person, 'isActive') }}
+                </td>
+            </tr>
+        </table>
+
+
+        <!-- <div>The Shirt price including sales tax is {{ shirtCost }}</div>
+        <div>The Hat price including sales tax is {{ hatCost }}</div> -->
+        <!-- <div v-html="msg"></div> -->
+        <!-- <div><img v-bind:src="imageSource1"></div>
+        <div><img :src="imageSource2"></div>
+        <div v-if="isVisible">You are in if block...</div>
+        <div v-else>Now you are in else block...</div> -->
+
+    </div>
+
+
+    <script src="https://unpkg.com/vue"></script>
+    <script src="main.js"></script>
+</body>
+</html>
